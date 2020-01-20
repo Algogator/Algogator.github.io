@@ -1,0 +1,42 @@
+---
+layout: post
+title: Share and Follow buttons on FB, Twitter and Google +
+date: 2018-07-02 15:39:08.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags: []
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_content_score: '90'
+  _yoast_wpseo_primary_category: ''
+author:
+  login: admin
+  email: admin@annaphilips.com
+  display_name: Anna
+  first_name: ''
+  last_name: ''
+permalink: "/share-buttons-on-fb-twitter-and-google/"
+---
+<h5>Share Buttons</h5>
+<h6>Twitter</h6>
+<p>Adding a hashtag button for Twitter is pretty straightforward with the <a href="https://developer.twitter.com/en/docs/twitter-for-websites/tweet-button/guides/hashtag-button.html">Hashtag button</a> but for Facebook and Google Plus you need to get creative and use a prefill text to toss in the hashtag (In my case #FedoraAppreciationWeek2k18). Plus you need to register your application to get a client ID for both the FB and Google share buttons.</p>
+<h6>Facebook</h6>
+<p>For Facebook, I was checking out the <a href="https://developers.facebook.com/docs/plugins/share-button/">share buttons</a> but there was no way you could prefill the text. And they have a <a href="https://developers.facebook.com/policy/#control">platform policy</a> for sharing.</p>
+<blockquote><p>Don’t prefill any content in captions, comments, messages or the user message parameter of posts unless (a) it is a single hashtag in a post shared through our Share Dialog (but not via our APIs), (b) it was created by the person using your app, or (c) it was created by a business whose employees use your app to administer the business’s presence on Facebook.</p></blockquote>
+<p>So I went with <a href="https://developers.facebook.com/docs/sharing/reference/share-dialog">Share Dialogs</a> which has a <strong>hashtag</strong> parameter. But before that, you need to <a href="https://developers.facebook.com/docs/apps/register/">create a new App on Facebook</a> and then <a href="https://developers.facebook.com/docs/javascript/quickstart/">set up the Facebook SDK for Javascript</a>. In your settings under <span class="_317_">App Domains</span>, don't forget to add http://localhost:8000 (It doesn't accept 127.0.0.1). If you don't you might get this error “ Can’t Load URL: The domain of this URL isn’t included in the app’s domains”</p>
+<p>To make it easier for the FB crawler to fetch the relevant content from the site (instead of trying to guess what the header and body for the post should be) we use <a href="https://developers.facebook.com/docs/sharing/webmasters#markup">Open </a>graph tags.</p>
+<p>You can even check what it might look like using the<a href="https://developers.facebook.com/tools/debug/"> Sharing debugger</a>.</p>
+<h6>Google +</h6>
+<p>The Share tag is the easiest way to share a link on Google Plus but again no way to prefill text. But I found an alternative, I decided to go with <a href="https://developers.google.com/+/web/share/interactive">Interactive Posts</a> since it allowed for prefilled text (<strong>data-prefilltext</strong> parameter). You need to register your app to get the client ID. Don't forget under <span class="p6n-form-label">Authorised JavaScript origins (in your projects credentials) you need to add http://localhost:8000 (without the / at the end)</span></p>
+<h5>Follow Buttons</h5>
+<h6>twitter</h6>
+<p>I decided to go with a simple link to the twitter handle. But there is an official <a href="https://help.twitter.com/en/using-twitter/add-follow-button-to-website">follow button</a> available. You just can't customize it much.</p>
+<h6>facebook</h6>
+<p>There is a deprecetaed <a href="https://developers.facebook.com/docs/archive/docs/plugins/follow-button/">follow button</a>. But the <a href="https://developers.facebook.com/docs/plugins/page-plugin">page plugin</a> is the way to go. Again not a lot of options for customization.</p>
+<h6>google +</h6>
+<p>We do have a <a href="https://developers.google.com/+/web/follow/">follow button</a> for Google +. And this one does not require a client ID.</p>
+<p>&nbsp;</p>

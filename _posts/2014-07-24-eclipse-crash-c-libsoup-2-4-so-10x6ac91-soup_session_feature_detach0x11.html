@@ -1,0 +1,35 @@
+---
+layout: post
+title: 'Eclipse Crash: C  [libsoup-2.4.so.1+0x6ac91]  soup_session_feature_detach+0x11'
+date: 2014-07-24 11:07:41.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Random
+tags:
+- crash
+- eclipse
+- java
+- ubuntu
+meta:
+  _aioseop_opengraph_settings: a:8:{s:32:"aioseop_opengraph_settings_title";s:0:"";s:31:"aioseop_opengraph_settings_desc";s:0:"";s:36:"aioseop_opengraph_settings_customimg";s:0:"";s:37:"aioseop_opengraph_settings_imagewidth";s:0:"";s:38:"aioseop_opengraph_settings_imageheight";s:0:"";s:35:"aioseop_opengraph_settings_category";s:7:"article";s:30:"aioseop_opengraph_settings_tag";s:0:"";s:34:"aioseop_opengraph_settings_setcard";s:7:"summary";}
+  _edit_last: '1'
+author:
+  login: admin
+  email: admin@annaphilips.com
+  display_name: Anna
+  first_name: ''
+  last_name: ''
+permalink: "/eclipse-crash-c-libsoup-2-4-so-10x6ac91-soup_session_feature_detach0x11/"
+---
+<blockquote># A fatal error has been detected by the Java Runtime Environment:<br />
+#  SIGSEGV (0xb) at pc=0x00007f9d6dfd4c91, pid=5739, tid=140316573566720<br />
+# JRE version: 7.0_25-b30<br />
+# Java VM: OpenJDK 64-Bit Server VM (23.7-b01 mixed mode linux-amd64 )<br />
+# Problematic frame:<br />
+# C  [libsoup-2.4.so.1+0x6ac91]  soup_session_feature_detach+0x11</p></blockquote>
+<p><a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=404776#c22" title="https://bugs.eclipse.org/bugs/show_bug.cgi?id=404776#c22" target="_blank">https://bugs.eclipse.org/bugs/show_bug.cgi?id=404776#c22</a></p>
+<p>Adding <strong>-Dorg.eclipse.swt.browser.DefaultType=mozilla</strong> at the end of eclipse.ini fixed it :) </p>

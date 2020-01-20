@@ -1,0 +1,69 @@
+---
+layout: post
+title: Feature Detectors and Descriptors in OpenCV
+date: 2017-01-13 02:31:27.000000000 -06:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- python
+tags: []
+meta:
+  _edit_last: '1'
+  _oembed_8d16f65248afa33e2f860e54aa03be01: "{{unknown}}"
+  _yoast_wpseo_focuskw_text_input: opencv
+  _yoast_wpseo_focuskw: opencv
+  _yoast_wpseo_linkdex: '70'
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_primary_category: '29'
+author:
+  login: admin
+  email: admin@annaphilips.com
+  display_name: Anna
+  first_name: ''
+  last_name: ''
+permalink: "/feature-detectors-descriptors-opencv/"
+---
+<p><a href="http://blog.annaphilips.com/wp-content/uploads/2017/01/image00.jpg"><img class="alignnone size-full wp-image-297" src="{{ site.baseurl }}/assets/image00.jpg" alt="" width="640" height="426" /></a></p>
+<p>Given this image of a leaf how would you go about getting and explaining the interesting features on this image in a way that a computer understands? What are the distinct features in this image? Can I compare this image to another one? This is where feature detectors and descriptors come in.</p>
+<p>What is a feature detector and what does it do? First off let’s define what a feature is; in wikipedia’s own words “In computer vision and image processing, a <b>feature</b> is a piece of information which is relevant for solving the computational task related to a certain application.” So a feature detector is an algorithm which takes an image as an input and gives back the key points(locations) of the features.</p>
+<p>So what makes a good feature detector? Repeatability - A high score means that a good number of features have been identified on both images of the same object or scene, this means the detector can stably recognize features under varying conditions. Distinctiveness - The detected features should be unique and distinguishable from each other. Quantity - A sufficient number of features should be detected to describe the content of the image. Efficiency - The detector should be reasonably fast and computationally inexpensive</p>
+<p>A feature is no good by itself, by describing the area around the feature (descriptor) we get information that can be used to do cool stuff like object recognition, real time tracking, image retrieval etc. The algorithm which takes in key points as input and outputs descriptors for them is called the feature descriptor.</p>
+<p>And what makes a good feature descriptor? Robustness - How sensitive is it to illumination changes, images transformations etc.? Distinctiveness - Does it describe the features well? What’s the quality of the descriptors? Efficiency - How expensive is it to compute the descriptors? Usually descriptors take more time to compute than detectors.</p>
+<p>OpenCV has a bunch of these algorithms built in so you don’t have code it from scratch. Some of them are patented like SIFT and SURF. I am going to limit this blogpost to the ones that have python bindings (did I mention OpenCV was written in C++), are non experimental and free: FAST/AGAST, MSER, ORB, BRISK and KAZE/AKAZE</p>
+<p>Features detectors can be classified into 3 categories: edge detection, corner detection and blob detection. Most of the algorithms I’m covering come under corner detection and blob detection so I’m going to skip edge detection for now.<br />
+<a href="http://blog.annaphilips.com/wp-content/uploads/2017/01/image01.png"><img class="alignnone size-full wp-image-296" src="{{ site.baseurl }}/assets/image01.png" alt="" width="849" height="575" /></a></p>
+<p><b>Corner detection:</b></p>
+<p>Corners are more unique in local image regions than edges which make them good features to pick out from images. These algorithms can further be classified into three groups.</p>
+<ul>
+<li>Gradient based (Harris detector, Shi-Tomasi detector)</li>
+<li>Template based (FAST, AGAST)</li>
+<li>Contour based</li>
+</ul>
+<p>&nbsp;</p>
+<p>As the name suggests gradient based corner detection is based on gradient computation. Some  drawbacks of gradient based methods: Computational complexity is high and noise in images can hinder gradient computations.</p>
+<p>In template based methods features are detected by comparing the center pixels with the surrounding pixels, these features are usually in a binary format which makes it inexpensive to compute and easy to store as they take up less space. Computational cost for template based methods is lesser than gradient based methods and the number of corners detected by template based methods is higher.</p>
+<p>In FAST (2006) the template is circular; a point is considered a corner only if a there is a certain number of contiguous pixels in the circle which are lighter/darker than the center pixel. A decision tree is trained as well to make detection faster. The high number of detected keypoints increases its repeatability score, but some of these detected keypoints are due to noise. AGAST (2010) is a faster version of FAST.</p>
+<p>In contour based methods, corners are found by contour and boundary detections methods. They depend on the contours obtained by edge detection</p>
+<p>&nbsp;</p>
+<p><b>Blob detection:</b></p>
+<p>Blob detection is the identification of regions or points of interest where some properties are constant or nearly constant. Interest point methods aim to find local extrema in a scale location spaces and are closely related to the construction of scale spaces while interest region methods try to find regions with constancy by segmentation techniques.</p>
+<p>Some interest point detection methods are BRISK (2011) and ORB (2011) which by the way can be used as a detector or a descriptor. They are scale and rotation invariant and pretty robust. But they do not do well with blurry images and the number of detected features is not stable.</p>
+<p>BRISK uses AGAST for feature detection and FAST scores as a measure of saliency when searching for maxima in scale space. The descriptors are built using a simple intensity comparison test. BRISKs sampling pattern is made up of concentric circles.</p>
+<p>ORB is a mash up of FAST and BRIEF, it uses FAST for keypoint detection and a modified BRIEF (rBRIEF) for the descriptor which makes it rotation invariant. ORB is less computationally expensive than BRISK but BRISK is a much better descriptor than ORB.</p>
+<p>In KAZE the points of interest as found using nonlinear diffusion filtering which preserves edges and improves the distinctiveness, while it is computationally expensive compared to the algorithms discussed before it has better performance and a more stable repeatability score than FAST/AGAST based detectors. They do well with textured images. AKAZE is the faster version of KAZE. The KAZE/AKAZE descriptors only work with KAZE/AKAZE keypoints in OpenCV.</p>
+<p>Interest region methods segment areas in an image which show constancy, these areas remain stable over a large threshold range. MSER works well with images that have uniform regions separated by strong intensity changes, one application is in detecting regions of interests in watershed maps. It doesn’t do so well with blurred images and the number of keypoints detected is lesser when compared to BRISK/ORB.</p>
+<p>&nbsp;</p>
+<p><b>So which detector/descriptor do I pick in OpenCV?</b></p>
+<p>It depends on the application and the kind of images you’re working with. Ideally you should use a detector which gives stable keypoints with a descriptor that is scale/rotation invariant and robust, but there is a tradeoff between accuracy and efficiency.</p>
+<p>For real time applications such as object tracking or where a large amount of data needs to processed as in the case of an image retrieval system or in devices which have limited computing power efficiency is important. FAST would be an appropriate detector in these situations as it detects a considerable amount of key points in a short time, paired with a binary descriptor like BRISK or ORB but these descriptors are pretty low in quality compared to KAZE/AKAZE which might not give you the accuracy or the robustness you want for huge image transformations.</p>
+<p>If you know before hand the kind of content in the images you’ll be computing, it could help in narrowing down a detector by the kind of image feature it detects(edges, corners or blobs). MSER will do well with  if you’re unsure about this you could always combine different types of detectors to extract various kinds of features. If all the images you’re computing are upright then it might make sense to skip rotation invariant descriptors</p>
+<p>&nbsp;</p>
+<p>References:</p>
+<p>Local Invariant Feature Detectors: A Survey, Tinne Tuytelaars and Krystian Mikolajczyk</p>
+<p>A survey of recent advances in visual feature detection Yali Li Shengjin Wang Qi Tian, Xiaoqing Ding</p>
+<p>https://arxiv.org/pdf/1607.06178v1.pdf</p>
+<p><a href="http://gilscvblog.com">http://gilscvblog.com</a></p>
+<p>Google</p>

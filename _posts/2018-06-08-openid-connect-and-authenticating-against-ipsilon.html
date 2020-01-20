@@ -1,0 +1,50 @@
+---
+layout: post
+title: OpenID Connect and Authenticating against Ipsilon
+date: 2018-06-08 14:20:20.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Google Summer of Code
+tags: []
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_content_score: '60'
+  _yoast_wpseo_primary_category: '34'
+  _oembed_2010f76b2d54d8a245d6a259917e4779: "{{unknown}}"
+  _oembed_7100613fb81254c22a7c7f0a9304e19a: "{{unknown}}"
+author:
+  login: admin
+  email: admin@annaphilips.com
+  display_name: Anna
+  first_name: ''
+  last_name: ''
+permalink: "/openid-connect-and-authenticating-against-ipsilon/"
+---
+<h5>Step 1 - Get your credentials</h5>
+<p>You need to register your app with the OP <a href="https://iddev.fedorainfracloud.org/">https://iddev.fedorainfracloud.org/</a></p>
+<p>I used <a href="https://github.com/puiterwijk/oidc-register">https://github.com/puiterwijk/oidc-register</a> for that.</p>
+<pre>pip install oidc-register</pre>
+<p>To register you need the provider, application, and redirect(callback) URLs</p>
+<pre>oidc-register https://iddev.fedorainfracloud.org/ https://127.0.0.1:8443 https://127.0.0.1:8443/oidc/callback/</pre>
+<p><em>Note: You can't use http unless it's with a localhost. </em></p>
+<p>After you do that you should have a <strong>client_secrets.json</strong> file in the same directory with the client secret and ID</p>
+<h5>Step 2 - Update your settings</h5>
+<p>For <a href="https://github.com/mozilla/mozilla-django-oidc">https://github.com/mozilla/mozilla-django-oidc</a> it's pretty straightforward. Update or add the <strong>OIDC_RP_CLIENT_ID</strong> and <strong>OIDC_RP_CLIENT_SECRET</strong> in the <strong>settings.py</strong> file or better yet add it as an environment variable. You don't want to accidentally commit the client ID and secret to your github repository.</p>
+<pre>export OIDC_RP_CLIENT_ID='xxx'
+export OIDC_RP_CLIENT_SECRET='xxx'
+</pre>
+<p>Don't forget to include the Authorizaation, Token and User Info endpoints in your settings file</p>
+<ul>
+<li>Authorization Endpoint: <a href="https://id.fedoraproject.org/openidc/Authorization">https://id.fedoraproject.org/openidc/Authorization</a></li>
+<li>Token Endpoint: <a href="https://id.fedoraproject.org/openidc/Token">https://id.fedoraproject.org/openidc/Token</a></li>
+<li>UserInfo Endpoint: <a href="https://id.fedoraproject.org/openidc/UserInfo">https://id.fedoraproject.org/openidc/UserInfo</a></li>
+</ul>
+<p>You might also need to change the signing algorithm to RS256 which requires the public key of the OP or its JWK endpoint <a href="https://id.fedoraproject.org/openidc/Jwks">https://id.fedoraproject.org/openidc/Jwks</a></p>
+<h6>References</h6>
+<p><a href="https://docs.pagure.org/infra-docs/dev-guide/auth.html">https://docs.pagure.org/infra-docs/dev-guide/auth.html</a></p>
+<p><a href="https://fedoraproject.org/wiki/Infrastructure/Authentication">https://fedoraproject.org/wiki/Infrastructure/Authentication</a></p>
+<p>&nbsp;</p>

@@ -1,0 +1,79 @@
+---
+layout: post
+title: fedmsg on CentOS
+date: 2018-06-27 18:46:51.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Google Summer of Code
+tags:
+- gsoc
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_content_score: '60'
+  _yoast_wpseo_primary_category: '1'
+  _oembed_1cf21eeb32183220d87801a30f535322: "{{unknown}}"
+  _oembed_65af82bd6eb59c32df8d2a2113f8239c: "{{unknown}}"
+  _yoast_wpseo_focuskw_text_input: fedmsg
+  _yoast_wpseo_focuskw: fedmsg
+  _yoast_wpseo_linkdex: '55'
+author:
+  login: admin
+  email: admin@annaphilips.com
+  display_name: Anna
+  first_name: ''
+  last_name: ''
+permalink: "/fedmsg-on-centos/"
+---
+<h6>Zeromq</h6>
+<p>fedmsg is "a library built on ZeroMQ using the PyZMQ Python bindings". So I thought it might help to learn a little bit more about ZeroMQ ( which is not a messaging queue).</p>
+<ul>
+<li>Contexts - You usually have one context per process and which manages the sockets.</li>
+<li>Socket - It can be configured and connect to other sockets to exchange messages. You have different types for the different patterns. fedmsg uses the publish/subscribe pattern (asynchronous), where a single process sends messages to multiple recipients.</li>
+<li>Channel - It's the connection between two sockets.</li>
+<li>Transport - fedmsg, in particular, uses the TCP protocol</li>
+</ul>
+<p>The sockets used in fedmsg to publish and subscribe to messages is  PUB (publisher) and SUB (subscriber). Messages, which are JSON encoded, are published with a topic which can be used by subscribers to filter the messages. A topic in fedmsg can take the form</p>
+<p><strong>&lt;topic_prefix&gt;.&lt;environment&gt;.&lt;modname&gt;.&lt;topic&gt;</strong></p>
+<p>modname is the module trying to publish the message</p>
+<h6>Setting it up</h6>
+<p><em>Disclaimer: This is for a development instance and not production.</em></p>
+<p>Installing fedmsg is pretty straightforward but configuring it can be a bit tedious.</p>
+<p><code>sudo yum install fedmsg</code></p>
+<p>If you go to <strong>/etc/fedmsg.d/ </strong>you should see all these files: base.py, endpoints.py, gateway.py, ircbot.py, logging.py, relay.py, and ssl.py</p>
+<p>If you try to publish a message from the interpreter</p>
+<p><code>&gt;&gt; import fedmsg<br />
+&gt;&gt;&gt; fedmsg.publish(topic='testing', modname='test', msg={<br />
+... 'test': "Hello World",<br />
+... })</code></p>
+<p>You might get this error <code>AttributeError: 'FedMsgContext' object has no attribute 'publisher'</code></p>
+<p>(Refer <a href="https://github.com/fedora-infra/fedmsg/issues/426">https://github.com/fedora-infra/fedmsg/issues/426</a>)</p>
+<p>To fix this you need to configure the endpoints in <strong>endpoints.py</strong></p>
+<p>So an endpoint is basically a string which specifies a transport (TCP) and an address to bind to.</p>
+<p><strong>&lt;transport&gt;://address </strong></p>
+<p>You can read more about it here <a href="http://www.fedmsg.com/en/stable/configuration/#endpoints">http://www.fedmsg.com/en/stable/configuration/#endpoints</a></p>
+<p>In endpoints.py add your endpoint to the config dictionary. The key has to be the <strong>&lt;name of the application&gt; .&lt;host name&gt; </strong>and the value is a list of all possible endpoints the socket can bind to. You can find out your hostname using <strong>hostname -s </strong></p>
+<p>You can view the configuration from the terminal using <strong>fedmsg-config</strong></p>
+<p>One possible entry could look like this:</p>
+<p><code>"__main__.centos-s-1vcpu": ["tcp://127.0.0.1:5001"],</code></p>
+<p>If we try to publish the message now it should work. But how can I check if it shows up on the fedmsg bus? Launch another Python interpreter and try:</p>
+<p><code>&gt;&gt; for name, endpoint, topic, msg in fedmsg.tail_messages():<br />
+... print topic, msg</code></p>
+<p>This should print out all the messages currently arriving. You could also use <strong>fedmsg-tail --really-pretty</strong> from the terminal. <strong>fedmsg.tail_messages() </strong>gets messages published on the sockets listed in endpoints.</p>
+<p>But if you try to publish now you might get this</p>
+<p><code>IOError: Couldn't find an available endpoint for name '__main__.centos-s-1vcpu-1gb-lon1-01'</code></p>
+<p>That's because we specified one endpoint for this application in the config.py file. So if we change the config file to add another one.</p>
+<p><code>"__main__.centos-s-1vcpu-1gb-lon1-01": ["tcp://127.0.0.1:5001", "tcp://127.0.0.1:5002"],</code></p>
+<p>You should be able to publish messages now and see it</p>
+<p><code>No handlers could be found for logger "fedmsg.crypto"<br />
+/usr/lib/python2.7/site-packages/fedmsg/core.py:441: UserWarning: !! invalid message received: {u'username': u'root', u'i': 3, u'timestamp': 1530124619, u'msg_id': u'2018-e4090d11-8944-4b30-9d25-0f59c549fab0', u'topic': u'org.fedoraproject.dev.test.testing', u'msg': {u'test': u'Hello World'}}<br />
+warnings.warn("!! invalid message received: %r" % e.msg)</code></p>
+<p>You get this warning because <strong>validate_signatures </strong>in ssl.py is enabled by default. You can disable it for now for development.</p>
+<h6>references</h6>
+<ul>
+<li><a href="http://www.fedmsg.com/en/stable/">http://www.fedmsg.com/en/stable/</a></li>
+<li><a href="http://zeromq.github.io/cljzmq/zeromq.zmq.html">http://zeromq.github.io/cljzmq/zeromq.zmq.html</a></li>
+</ul>

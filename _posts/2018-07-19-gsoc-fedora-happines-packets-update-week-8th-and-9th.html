@@ -1,0 +1,34 @@
+---
+layout: post
+title: GSoC Fedora Happines Packets Update - Week 8th and 9th
+date: 2018-07-19 05:15:54.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Google Summer of Code
+tags: []
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_primary_category: ''
+author:
+  login: admin
+  email: admin@annaphilips.com
+  display_name: Anna
+  first_name: ''
+  last_name: ''
+permalink: "/gsoc-fedora-happines-packets-update-week-8th-and-9th/"
+---
+<p>The talk got accepted a month ago (<a href="https://pagure.io/flock/issue/55">https://pagure.io/flock/issue/55</a>) but I didn't know if I'd be able to attend it. I couldn't find an appointment at the Houston consulate for July, the entire month was booked but luckily someone cancelled last week so I made a quick trip to Houston. And I got my passport back today and saw the VISA was approved. So I'll be attending FLOCK 2018 :D</p>
+<p>Added a search bar for the messages archive (<a href="https://pagure.io/fedora-commops/fedora-happiness-packets/issue/11">https://pagure.io/fedora-commops/fedora-happiness-packets/issue/11</a>). Djangos' <code class="docutils literal notranslate"><span class="pre">django.contrib.postgres.search</span></code> module makes use of PostgreSQL’s <a class="reference external" href="https://www.postgresql.org/docs/current/static/textsearch.html">full text search engine</a> which made it pretty convenient to design a query to search against the messages, senders, and recipients. Using the SearchVector you can search against multiple fields. Maybe next week I can add an option to filter and sort the search results based on teh date or user.</p>
+<p>Little bit of holdup on (<a href="https://pagure.io/fedora-infrastructure/issue/7053">https://pagure.io/fedora-infrastructure/issue/7053</a>) I thought it would be straightforward setting up the production and staging instance once the dev instance was done but ran into a lot of bumps:</p>
+<ol>
+<li>Client IDs and secrets: In certain cases, you can't always set the environment variables with the client ID and secret which is why I opted to go with a secret.json file for the staging and production instance.</li>
+<li>JWK endpoints: Mozillas' OIDC Django plugin throws an error if the JWK doesn't specify 'alg' (the algorithm for the key). I filed a bug report here (<a href="https://github.com/mozilla/mozilla-django-oidc/issues/247">https://github.com/mozilla/mozilla-django-oidc/issues/247</a>). The way I worked around it in the dev instace was using the public key from here (<a href="https://github.com/transtats/transtats/blob/devel/transtats/settings/auth.py">https://github.com/transtats/transtats/blob/devel/transtats/settings/auth.py</a>) so I never had to use the endpoint. But I'm not entirely sure how to generate a public key for the production and staging instance from the JWK endpoint. So for now I'm thinking about making a PR to mozilla-django-oidc</li>
+<li>fedmsg: Finally, with the help of the infra team, got fedmsg to work in the staging instance. Had to publish messages to the relay.</li>
+</ol>
+<p>Badge: So the badge is waiting on the logo for now (<a href="https://pagure.io/fedora-badges/issue/627">https://pagure.io/fedora-badges/issue/627</a>). Might still be able to get this done before since fedmsg is up and running.</p>
+<p>Design: The logo request (<a href="https://pagure.io/design/issue/606">https://pagure.io/design/issue/606</a>), blue doesn't seem like the appropriate color to express happiness.</p>

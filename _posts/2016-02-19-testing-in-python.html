@@ -1,0 +1,54 @@
+---
+layout: post
+title: Testing in Python - unittest
+date: 2016-02-19 17:46:48.000000000 -06:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- python
+tags: []
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: unittest
+  _yoast_wpseo_focuskw: unittest
+  _yoast_wpseo_linkdex: '57'
+author:
+  login: admin
+  email: admin@annaphilips.com
+  display_name: Anna
+  first_name: ''
+  last_name: ''
+permalink: "/testing-in-python/"
+---
+<h2>unittest</h2>
+<p>TDD seems to be the fad these days and I can see why,  so now would be a good time to learn up on automated testing and CI. How TDD works is that you write the unit test, the test should fail when you run it and then you write the piece of code to make the test pass. It gets pretty annoying to debug the code after each deployment, save yourself the trouble and write tests for them. There are a lot of testing frameworks (some with a more simple syntax than unittest) out there for Python, but I'll be sticking to unittest.</p>
+<p>Let's write tests for our addition module from the last post.</p>
+<p>Create a new file called <strong>test_addition.py </strong> in the same folder as the addition module.</p>
+<pre>import unittest
+import addition
+
+class TestAddition(unittest.TestCase):
+
+    def test_add2(self):
+        self.assertEqual(addition.add2(2,3),5)
+
+    def test_add3(self):
+        self.assertEqual(addition.add3(1,2,3),6)
+
+if __name__ == '__main__':
+    unittest.main()</pre>
+<p>In the first two lines you need to import unittest  and the module that is to be tested.</p>
+<p>To create test cases you first need to create a class extending unittest's TestCase class, usually it's one test class for each class.</p>
+<p>Next write methods to test each function, the method name has to start with <strong>test </strong>so the test runner knows it's a test.</p>
+<p>Here we use the assertEqual() to make sure that the value from the function we're testing is the expected one. There are other functions we can use such as assertTrue() or assertFalse() to check if the output of the function is correct.</p>
+<p>We add the unittest.main() at the end to run all the tests in the file. To run the test we do run the following from the command line.</p>
+<blockquote><p> python test_addition.py</p></blockquote>
+<p>If everything goes well then we should get something like</p>
+<blockquote><p>..<br />
+----------------------------------------------------------------------<br />
+Ran 2 tests in 0.000s</p>
+<p>OK</p></blockquote>
+<p>There are other neat things you can do with unittest, more to read over here <a href="https://docs.python.org/3/library/unittest.html">https://docs.python.org/3/library/unittest.html</a></p>

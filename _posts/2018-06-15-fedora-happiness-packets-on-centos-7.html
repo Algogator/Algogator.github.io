@@ -1,0 +1,60 @@
+---
+layout: post
+title: Fedora Happiness Packets on CentOS 7
+date: 2018-06-15 17:55:27.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Google Summer of Code
+tags:
+- gsoc
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_primary_category: '34'
+  _yoast_wpseo_focuskw_text_input: centos
+  _yoast_wpseo_focuskw: centos
+  _yoast_wpseo_linkdex: '67'
+  _oembed_eae62aaacffecdbcea9f8a78ebf26649: "{{unknown}}"
+  _oembed_3d890c718f70a14d68a9f7abcfe56e38: '<blockquote class="wp-embedded-content"
+    data-secret="OYPPdSMPd7"><a href="https://tecadmin.net/install-and-configure-postfix-on-centos-redhat/">How
+    to Install Postfix on CentOS/RHEL 7/6/5</a></blockquote><iframe class="wp-embedded-content"
+    sandbox="allow-scripts" security="restricted" style="position: absolute; clip:
+    rect(1px, 1px, 1px, 1px);" src="https://tecadmin.net/install-and-configure-postfix-on-centos-redhat/embed/#?secret=OYPPdSMPd7"
+    data-secret="OYPPdSMPd7" width="600" height="338" title="&#8220;How to Install
+    Postfix on CentOS/RHEL 7/6/5&#8221; &#8212; TecAdmin" frameborder="0" marginwidth="0"
+    marginheight="0" scrolling="no"></iframe>'
+  _oembed_time_3d890c718f70a14d68a9f7abcfe56e38: '1531625613'
+author:
+  login: admin
+  email: admin@annaphilips.com
+  display_name: Anna
+  first_name: ''
+  last_name: ''
+permalink: "/fedora-happiness-packets-on-centos-7/"
+---
+<p>I'm writing this for future me. My default OS is Ubuntu so setting up the project on CentOS was new for me.</p>
+<blockquote><p>gcc -pthread -fno-strict-aliasing -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector-strong --param=ssp-buffer-size=4 -grecord-gcc-switches -m64 -mtune=generic -D_GNU_SOURCE -fPIC -fwrapv -DNDEBUG -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector-strong --param=ssp-buffer-size=4 -grecord-gcc-switches -m64 -mtune=generic -D_GNU_SOURCE -fPIC -fwrapv -fPIC -I/usr/include/python2.7 -c _scandir.c -o build/temp.linux-x86_64-2.7/_scandir.o<br />
+unable to execute gcc: No such file or directory<br />
+error: command 'gcc' failed with exit status 1</p></blockquote>
+<p><code>yum install gcc</code></p>
+<blockquote><p>gcc -pthread -fno-strict-aliasing -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector-strong --param=ssp-buffer-size=4 -grecord-gcc-switches -m64 -mtune=generic -D_GNU_SOURCE -fPIC -fwrapv -DNDEBUG -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector-strong --param=ssp-buffer-size=4 -grecord-gcc-switches -m64 -mtune=generic -D_GNU_SOURCE -fPIC -fwrapv -fPIC -I/usr/include/python2.7 -c _scandir.c -o build/temp.linux-x86_64-2.7/_scandir.o<br />
+_scandir.c:14:20: fatal error: Python.h: No such file or directory<br />
+#include<br />
+^<br />
+compilation terminated.<br />
+error: command 'gcc' failed with exit status 1</p></blockquote>
+<p><code>yum install python-devel</code></p>
+<blockquote><p>gcc -pthread -shared -Wl,-z,relro build/temp.linux-x86_64-2.7/Modules/2.x/readline.o readline/libreadline.a readline/libhistory.a -L/usr/lib64 -lncurses -lpython2.7 -o build/lib.linux-x86_64-2.7/gnureadline.so<br />
+gcc: error: readline/libreadline.a: No such file or directory<br />
+gcc: error: readline/libhistory.a: No such file or directory<br />
+error: command 'gcc' failed with exit status 1</p></blockquote>
+<p><code>yum install patch</code></p>
+<blockquote><p>gcc -pthread -shared -Wl,-z,relro build/temp.linux-x86_64-2.7/Modules/2.x/readline.o readline/libreadline.a readline/libhistory.a -L/usr/lib64 -lncurses -lpython2.7 -o build/lib.linux-x86_64-2.7/gnureadline.so<br />
+/usr/bin/ld: cannot find -lncurses<br />
+collect2: error: ld returned 1 exit status<br />
+error: command 'gcc' failed with exit status 1</p></blockquote>
+<p><code>yum install ncurses-devel</code></p>

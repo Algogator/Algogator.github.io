@@ -1,0 +1,62 @@
+---
+layout: post
+title: Setting up Trove wtih Devstack
+date: 2014-10-22 02:05:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- OpenStack
+tags:
+- openstack
+- ubuntu
+meta:
+  tumblr_annaphilips_permalink: http://annaphilips.tumblr.com/post/100633818658/setting-up-trove-wtih-devstack
+  tumblr_annaphilips_id: '100633818658'
+author:
+  login: admin
+  email: admin@annaphilips.com
+  display_name: Anna
+  first_name: ''
+  last_name: ''
+permalink: "/setting-up-trove-wtih-devstack/"
+---
+<p>Well first off you need to have VirtualBox and Vagrant installed - <a href="http://www.olindata.com/blog/2014/07/installing-vagrant-and-virtual-box-ubuntu-1404-lts" target="_blank">Installing Vagrant and Virtual box on Ubuntu 14.04 LTS</a>. VMs are helpful when you want to experiment without messing up your system. Once that&#8217;s done, create a folder for your project <strong>mkdir devstack_trove </strong>and <strong>cd</strong> into that folder.</p>
+<p>Run<strong> vagrant init </strong>in the folder. You&#8217;ll get a Vagrantfile, edit it and make the following changes:</p>
+<blockquote>
+<p>config.vm.box = &#8220;precise32&#8221;</p>
+<p>&#8230;</p>
+<p>config.vm.network &#8220;forwarded_port&#8221;, guest: 80, host: 8080</p>
+</blockquote>
+<p>The last line lets you access the dashboard(Horizon) on localhost:8080</p>
+<p><strong>Note:</strong> Best to setup devstack with 2GB RAM and a reasonably sized swap file.</p>
+<p>Now we&#8217;re ready to start the VM <strong>vagrant up</strong>, once it&#8217;s up and running you can SSH into it <strong>vagrant ssh</strong>. You need to be root <strong>sudo su </strong>before you can execute these commands.</p>
+<p>First update the VM and then install git: <strong>apt-get update &amp;&amp; apt-get install git-core -y</strong></p>
+<p>Then <strong>cd ~</strong> to the home directory</p>
+<p>We&#8217;re going to clone trove-integration which will help us setup Trove with Devstack -<strong> git clone <a href="https://github.com/openstack/trove-integration.git" target="_blank">https://github.com/openstack/trove-integration.git</a></strong></p>
+<p>Go to the scripts directory <strong>cd trove-integration/scripts/</strong></p>
+<p>Using redstack we&#8217;re going to install Devstack with Trove <strong>./redstack install </strong>this starts all the necessary services as well.</p>
+<p>You can check if all the services are running by connecting to the screen <strong>screen -x stack </strong></p>
+<p>If you get an error:</p>
+<blockquote>
+<p>Cannot open your terminal &#8216;/dev/pts/xx&#8217;</p>
+</blockquote>
+<p>Then you can change the access permission for it by <strong>chmod 660 /dev/pts/xx</strong></p>
+<p>To detach from the screen type in <strong>C</strong><strong>trl+A </strong>then <strong>D</strong></p>
+<p>After it&#8217;s been installed &#8220;successfully&#8221; you can kickstart the setup of Trove <strong>./redstack kick-start mysql</strong>, it&#8217;s basically test-init and build-image packed into a single command. If everything goes well, you should get something like:</p>
+<blockquote>
+<div class="de1">Starting tr-api cd /opt/stack/trove; /usr/local/bin/trove-api &#8212;config-file=/etc/trove/trove.conf &#8212;debug 2&gt;&amp;1 | tee /home/trove-try/trove-integration/scripts/../report/logs/trove-api.log&#8230;</div>
+<div class="de2">Starting tr-tmgr cd /opt/stack/trove; /usr/local/bin/trove-taskmanager &#8212;config-file=/etc/trove/trove-taskmanager.conf &#8212;debug 2&gt;&amp;1 | tee /home/trove-try/trove-integration/scripts/../report/logs/trove-taskmanager.log&#8230;</div>
+<div class="de1">Starting tr-cond cd /opt/stack/trove; /usr/local/bin/trove-conductor &#8212;config-file=/etc/trove/trove-conductor.conf &#8212;debug 2&gt;&amp;1 | tee /home/trove-try/trove-integration/scripts/../report/logs/trove-conductor.log&#8230;</div>
+</blockquote>
+<div class="de1"></div>
+<div class="de1">Before you can use the trove CLI, you need to <a href="http://docs.openstack.org/user-guide/content/cli_openrc.html" target="_blank">Set environment variables using the OpenStack RC file</a><strong> source openrc admin admin </strong>in the <strong>~/devstack</strong> directory for admin rights.</div>
+<div class="de1">Else you&#8217;re going to get errors like:</div>
+<blockquote>
+<div class="de1">ERROR: You must provide a username via either &#8212;os_username or env[OS_USERNAME]</div>
+</blockquote>
+<div class="de1"></div>
+<div class="de1">If you want to re-install:</div>
+<div class="de1"><strong>killall -9 screen</strong> <br /><strong>screen -wipe</strong> <br /><strong>RECLONE=yes ./redstack install</strong><br /><strong>./redstack kick-start mysql</strong></div>

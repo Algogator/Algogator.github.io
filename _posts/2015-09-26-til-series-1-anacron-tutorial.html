@@ -1,0 +1,42 @@
+---
+layout: post
+title: 'TIL Series #1 - Anacron Tutorial'
+date: 2015-09-26 17:08:34.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- FOSS
+tags: []
+meta:
+  _edit_last: '1'
+  _oembed_435fe458b0efa1b846e093208ea1a514: "{{unknown}}"
+  _yoast_wpseo_focuskw: anacron tutorial
+  _yoast_wpseo_linkdex: '66'
+  _wpas_done_all: '1'
+author:
+  login: admin
+  email: admin@annaphilips.com
+  display_name: Anna
+  first_name: ''
+  last_name: ''
+permalink: "/til-series-1-anacron-tutorial/"
+---
+<h2>TIL Series #1 - Anacron Tutorial</h2>
+<p><del><strong>Back-story:</strong> My dad usually asks us to send the public IP (Home network) to him daily (don't ask me why) and like always I usually forget to and it occurred to me I could just set up a script to do that.</del></p>
+<p>So while looking cron up, I wondered what would happen if my system was down and it missed it's scheduled job. Looked  it up and I found that cron does not run said job at boot up. <a href="http://serverfault.com/questions/52335/job-scheduling-using-crontab-what-will-happen-when-computer-is-shutdown-during">This is where Anacron comes in</a>. Unfortunately you can only run it once a day. But that was good enough for what I wanted to do.</p>
+<p><strong>TL;DR Version:</strong></p>
+<ol>
+<li class="filename">Open <em><code class="filename">/etc/anacrontab</code></em></li>
+<li class="filename">Say I want to run <em>script.sh</em> everyday then the entry would be  <code class="filename"><em>1       5       dad.daily       /bin/sh /home/anna/script.sh<br />
+</em></code>The first column is for the frequency of execution of the job, the second is for the delay before the job begins, the third column is the name you assign to the job and the fourth column is for the command to be executed.</li>
+</ol>
+<p><strong>References:</strong></p>
+<ul>
+<li><a href="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/ch-Automating_System_Tasks.html#s2-configuring-anacron-jobs">https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/ch-Automating_System_Tasks.html#s2-configuring-anacron-jobs</a></li>
+<li><a href="http://www.linuxandlife.com/2013/03/how-to-use-anacrontab-to-schedule-tasks.html">http://www.linuxandlife.com/2013/03/how-to-use-anacrontab-to-schedule-tasks.html</a></li>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-schedule-routine-tasks-with-cron-and-anacron-on-a-vps">https://www.digitalocean.com/community/tutorials/how-to-schedule-routine-tasks-with-cron-and-anacron-on-a-vps</a></li>
+<li><a href="http://www.thegeekstuff.com/2011/05/anacron-examples/">http://www.thegeekstuff.com/2011/05/anacron-examples/</a></li>
+</ul>

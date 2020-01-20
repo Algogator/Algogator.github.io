@@ -1,0 +1,44 @@
+---
+layout: post
+title: Modules & Packages in Python
+date: 2016-02-19 09:39:55.000000000 -06:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- python
+tags:
+- python
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: modules
+  _yoast_wpseo_focuskw: modules
+  _yoast_wpseo_linkdex: '70'
+author:
+  login: admin
+  email: admin@annaphilips.com
+  display_name: Anna
+  first_name: ''
+  last_name: ''
+permalink: "/module-package-class/"
+---
+<h2>Modules &amp; Packages</h2>
+<p>A module is a python source file containing function definitions.</p>
+<p><a href="http://blog.annaphilips.com/wp-content/uploads/2016/02/module.png" rel="attachment wp-att-258"><img class="size-medium wp-image-258 aligncenter" src="{{ site.baseurl }}/assets/module-300x148.png" alt="module" width="300" height="148" /></a>So if I wanted to group a bunch of similar functions together and be able to use it anywhere else I'd create a module. For example, say I want to create a module that has two functions - <strong>add2()</strong> and <strong>add3()</strong>. Then I would need to create a new python file and call it <strong>add.py</strong> and place both functions into it. From the interpretor I can import the module like so</p>
+<blockquote><p>&gt;&gt;&gt;import add</p></blockquote>
+<p>and call the functions</p>
+<blockquote><p>&gt;&gt;&gt;add.add2(2,3)</p>
+<p>5</p>
+<p>&gt;&gt;add.add3(1,2,3)</p>
+<p>6</p></blockquote>
+<p>Now a package in python is a group of modules and an initialization file in a folder.</p>
+<p><strong>module.py + __init__.py = package</strong></p>
+<p>Let's create an arithmetic package, for this we need to create a folder called <strong>arithmetic</strong>, inside it place the modules you want and __init__.py file. The __init__.py file is for the initialization of the package which can be empty for now.</p>
+<p><a href="http://blog.annaphilips.com/wp-content/uploads/2016/02/package1.png" rel="attachment wp-att-259"><img class="size-medium wp-image-259 aligncenter" src="{{ site.baseurl }}/assets/package1-245x300.png" alt="package1" width="245" height="300" /></a></p>
+<p>If I want to use the arithmetic package, I can do so by importing it</p>
+<blockquote><p>&gt;&gt;&gt;from arithmetic.addition import add2</p>
+<p>&gt;&gt;&gt;add2(3,2)</p>
+<p>5</p></blockquote>
+<p>You can read up more about modules and packages from over here <a href="https://docs.python.org/2/tutorial/modules.html">https://docs.python.org/2/tutorial/modules.html</a></p>

@@ -1,0 +1,51 @@
+---
+layout: post
+title: 'connect to host localhost port 22: Connection refused'
+date: 2014-10-16 16:34:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Ubuntu
+tags:
+- hadoop
+- ubuntu
+meta:
+  tumblr_annaphilips_permalink: http://annaphilips.tumblr.com/post/100167318098/ssh-connect-to-host-localhost-port-22-connection
+  tumblr_annaphilips_id: '100167318098'
+  _edit_last: '1'
+  _yoast_wpseo_focuskw: 'connect to host localhost port 22: Connection refused'
+  _yoast_wpseo_metadesc: 'Fix a "ssh: connect to host localhost port 22: Connection
+    refused" error in Ubuntu'
+  _yoast_wpseo_linkdex: '71'
+author:
+  login: admin
+  email: admin@annaphilips.com
+  display_name: Anna
+  first_name: ''
+  last_name: ''
+permalink: "/ssh-connect-to-host-localhost-port-22-connection/"
+---
+<h2>Fix a "ssh: connect to host localhost port 22: Connection refused" error in Ubuntu</h2>
+<p>I was trying to install hadoop today and part of the setup was being able to ssh to localhost.</p>
+<p>So I tried <strong>ssh localhost </strong></p>
+<blockquote><p>ssh: connect to host localhost port 22: Connection refused</p></blockquote>
+<p>So googled around a bit; ssh was up and running no problem there.</p>
+<p>I tried re-installing it, still no luck.</p>
+<p>Came across this <a href="http://stackoverflow.com/a/25699125" target="_blank">http://stackoverflow.com/a/25699125 </a></p>
+<p>Checked which port sshd was listening on <strong>sudo netstat -tulpen</strong></p>
+<p>And what do you know, the port for sshd was not 22</p>
+<p>I tried ssh to the said port:</p>
+<p><strong>ssh localhost -p 12345</strong></p>
+<p>and it worked!</p>
+<p>Now I needed to change it:</p>
+<p>Use your favorite editor to edit the <strong>sshd_config</strong> file</p>
+<p><strong>sudo nano /etc/ssh/sshd_config</strong></p>
+<p>Look for something like</p>
+<blockquote><p># What ports, IPs and protocols we listen for<br />
+Port 12345</p></blockquote>
+<p>And change that port from 12345 to 22</p>
+<p>Restart and you’re good to go!</p>
+<p><strong>sudo restart ssh</strong></p>

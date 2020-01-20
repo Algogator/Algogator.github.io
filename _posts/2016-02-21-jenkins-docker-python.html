@@ -1,0 +1,46 @@
+---
+layout: post
+title: Jenkins + Docker + Python
+date: 2016-02-21 07:50:01.000000000 -06:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- python
+tags:
+- docker
+- jenkins
+- python
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: docker
+  _yoast_wpseo_focuskw: docker
+  _yoast_wpseo_linkdex: '59'
+author:
+  login: admin
+  email: admin@annaphilips.com
+  display_name: Anna
+  first_name: ''
+  last_name: ''
+permalink: "/jenkins-docker-python/"
+---
+<h2>Jenkins + Docker + Python</h2>
+<p>This is going to be a very brief tutorialish article, nothing too fancy or complicated. You're going to need Docker for this, and the installation instructions are over here for Ubuntu <a href="https://docs.docker.com/engine/installation/linux/ubuntulinux/">https://docs.docker.com/engine/installation/linux/ubuntulinux/</a></p>
+<p>Once you have Docker setup you just need the official Jenkins docker image from over here <a href="https://hub.docker.com/_/jenkins/">https://hub.docker.com/_/jenkins/</a></p>
+<blockquote><p>docker pull jenkins</p>
+<p>docker run -p 8080:8080 -p 50000:50000 jenkins</p></blockquote>
+<p>You can now access Jenkins at localhost:8080</p>
+<p>We need to install the git plugin next, in the dashboard page on the left click <strong>Manage Jenkins</strong> -&gt;<strong> Manage Plugins </strong>-&gt; <strong>Available </strong>and install <strong>G</strong><strong>it plugin</strong> and from the list.</p>
+<p>After that let's create a new job from the dashboard. Give it a name and pick Freestyle project.</p>
+<p>At the Source Code Management section, type in the repo's url and add your credentials.</p>
+<p style="text-align: justify;"><a href="http://blog.annaphilips.com/wp-content/uploads/2016/02/2016-02-21-121721_1366x768_scrot.png" rel="attachment wp-att-269"><img class="size-full wp-image-269 aligncenter" src="{{ site.baseurl }}/assets/2016-02-21-121721_1366x768_scrot.png" alt="2016-02-21-121721_1366x768_scrot" width="949" height="317" /></a> In the Build Triggers we check Poll SCM and type in H/5 * * * *, this checks the repo for any changes every 5 minutes.</p>
+<p style="text-align: justify;"><a href="http://blog.annaphilips.com/wp-content/uploads/2016/02/2016-02-21-123417_1366x768_scrot.png" rel="attachment wp-att-270"><img class="alignnone size-full wp-image-270" src="{{ site.baseurl }}/assets/2016-02-21-123417_1366x768_scrot.png" alt="2016-02-21-123417_1366x768_scrot" width="949" height="331" /></a>Lastly in the Build section we're going to execute a command to run the tests in the repo so from the drop down pick Build then type in command to run the tests</p>
+<blockquote>
+<p style="text-align: justify;">python -m unittest discover  -v</p>
+</blockquote>
+<p style="text-align: justify;"><a href="http://blog.annaphilips.com/wp-content/uploads/2016/02/2016-02-21-123747_1366x768_scrot.png" rel="attachment wp-att-271"><img class="alignnone size-full wp-image-271" src="{{ site.baseurl }}/assets/2016-02-21-123747_1366x768_scrot.png" alt="2016-02-21-123747_1366x768_scrot" width="947" height="310" /></a>Save all changes and head back to the dashboard.</p>
+<p style="text-align: justify;">Now that's done, try pushing a commit to the remote repo. After a few minutes a second build should have started because of a SCM change. <a href="http://blog.annaphilips.com/wp-content/uploads/2016/02/2016-02-21-130727_1366x768_scrot.png" rel="attachment wp-att-273"><img class="alignnone size-full wp-image-273" src="{{ site.baseurl }}/assets/2016-02-21-130727_1366x768_scrot.png" alt="2016-02-21-130727_1366x768_scrot" width="479" height="273" /></a></p>
+<p style="text-align: justify;">If you click Console on the left, you can can see that the tests have run successfully.</p>
+<p style="text-align: justify;"><a href="http://blog.annaphilips.com/wp-content/uploads/2016/02/2016-02-21-131836_1366x768_scrot.png" rel="attachment wp-att-275"><img class="alignnone size-full wp-image-275" src="{{ site.baseurl }}/assets/2016-02-21-131836_1366x768_scrot.png" alt="2016-02-21-131836_1366x768_scrot" width="921" height="571" /></a></p>

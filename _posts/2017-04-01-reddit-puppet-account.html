@@ -1,0 +1,62 @@
+---
+layout: post
+title: Reddit - Is that a puppet account?
+date: 2017-04-01 10:36:43.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags: []
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_primary_category: ''
+  _yoast_wpseo_focuskw_text_input: reddit
+  _yoast_wpseo_focuskw: reddit
+  _yoast_wpseo_linkdex: '73'
+author:
+  login: admin
+  email: admin@annaphilips.com
+  display_name: Anna
+  first_name: ''
+  last_name: ''
+permalink: "/reddit-puppet-account/"
+---
+<p>I can imagine this being a handy tool for mods of subreddits. Find blacklisted users parading under a new account. Unlike Twitter or Facebook, finding the similarity between users in Reddit is a bit harder. From the official Reddit API, the data we have to work with is (the ones that look promising anyway):</p>
+<ul>
+<li>GET /api/v1/user/username/trophies</li>
+<li>GET /user/username/about</li>
+<li>GET /user/username/where
+<ul>
+<li>→ /user/username/submitted<br />
+→ /user/username/comments<br />
+→ /user/username/upvoted<br />
+→ /user/username/downvoted<br />
+→ /user/username/hidden (not accessible?)<br />
+→ /user/username/saved (not accessible?)<br />
+→ /user/username/gilded</li>
+</ul>
+</li>
+<li>GET /api/multi/user/username</li>
+</ul>
+<p>A few assumptions and possible features about puppets:</p>
+<ul>
+<li>Age - They're new - the account is barely a few days old. Not a very good indicator though in my opinion. Users could have been using the alt account for a long time. This is a better feature for detecting trolls.</li>
+<li>Karma - A lot of controversial posts/links, again a better indicator for trolls. I would rarely expect the Karma for two users to match unless they've been equally active.</li>
+<li>Activity - Time of submissions of posts and links would be a good way to find out a users time zone. Days when they post, could reveal posting habits.</li>
+<li>Links they've submitted - find similar interests.</li>
+<li>Upvoted and downvoted content - again similar interests</li>
+<li>Subs they post in - similar interests</li>
+</ul>
+<p>And finally their literary style or fingerprint. This could include emojis and emoticons.</p>
+<h6>Breaking up the problem:</h6>
+<p>The individual problems I see are:</p>
+<ul>
+<li>Similar user interests</li>
+<li>Find the time zone of a user</li>
+<li>Troll detector</li>
+<li>Literary style of users</li>
+</ul>
+<p>I'll start with literary fingerprints for my next blog post in this series.</p>

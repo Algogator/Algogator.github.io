@@ -1,0 +1,66 @@
+---
+layout: post
+title: Sorting dictionaries
+date: 2017-02-05 13:50:44.000000000 -06:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- python
+tags: []
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_primary_category: '29'
+  _oembed_5f1a0defb1e00a0b4a3cc1deaa9c3fd4: "{{unknown}}"
+  _yoast_wpseo_focuskw_text_input: sort
+  _yoast_wpseo_focuskw: sort
+  _yoast_wpseo_linkdex: '36'
+author:
+  login: admin
+  email: admin@annaphilips.com
+  display_name: Anna
+  first_name: ''
+  last_name: ''
+permalink: "/sorting-dictionaries/"
+---
+<p><strong>sorted</strong>(iterable[, key][, reverse])<br />
+Return a new sorted list from the items in iterable.</p>
+<p>key specifies a <strong>function</strong> of one argument that is used to extract a comparison key from each list element: key=str.lower. The default value is None (compare the elements directly).</p>
+<p><strong>items</strong>()<br />
+Return a new view of the dictionary’s items (key, value) pairs.</p>
+<p>The objects returned by dict.keys(), dict.values() and dict.items() are view objects. They provide a dynamic view on the dictionary’s entries, which means that when the dictionary changes, the view reflects these changes.</p>
+<blockquote><p>&gt;&gt;&gt; dict = {1: {'s': 3} , 2: {'x': 4}, 3: {'c': 0}}<br />
+&gt;&gt;&gt; dict.items()<br />
+dict_items([(1, {'s': 3}), (2, {'x': 4}), (3, {'c': 0})])</p>
+<p>&gt;&gt; type(dict.items())<br />
+&lt;class 'dict_items'&gt;</p>
+<p>&gt;&gt;&gt; for i,v in dict.items():<br />
+... print(i,v)<br />
+...<br />
+1 {'s': 3}<br />
+2 {'x': 4}<br />
+3 {'c': 0}<br />
+&gt;&gt;&gt; for i in dict.items():<br />
+... print(i)<br />
+...<br />
+(1, {'s': 3})<br />
+(2, {'x': 4})<br />
+(3, {'c': 0})</p></blockquote>
+<p>By default it sorts on the key:</p>
+<blockquote><p>&gt;&gt;&gt; for i,v in sorted(dict.items(), key= lambda x: x[0]):<br />
+... print(i,v)<br />
+...<br />
+1 {'s': 3}<br />
+2 {'x': 4}<br />
+3 {'c': 0}</p></blockquote>
+<p>which would be the same as</p>
+<blockquote><p>&gt;&gt; for i,v in sorted(dict.items()):<br />
+... print(i,v)</p></blockquote>
+<p>What about sorting alphabetically the cities in {'Asia': {'India': ['Bangalore'], 'China':['Shanghai']}</p>
+<blockquote><p>for i,j in sorted(locations['Asia'].items(), key=lambda x: x[1]):<br />
+print(j[0],i)</p></blockquote>
+<p><a href="https://docs.python.org/3.5/library/operator.html">https://docs.python.org/3.5/library/operator.html</a></p>
+<p><a href="https://www.python.org/dev/peps/pep-3113/">https://www.python.org/dev/peps/pep-3113/</a></p>

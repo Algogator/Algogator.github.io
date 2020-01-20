@@ -1,0 +1,37 @@
+---
+layout: post
+title: Setting up dbvis for Ubuntu 14.04.1
+date: 2014-10-13 15:17:00.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Ubuntu
+tags:
+- dbvis
+- ubuntu
+meta:
+  tumblr_annaphilips_permalink: http://annaphilips.tumblr.com/post/99910039823/setting-up-dbvis-for-ubuntu-14-04-1
+  tumblr_annaphilips_id: '99910039823'
+  _edit_last: '1'
+author:
+  login: admin
+  email: admin@annaphilips.com
+  display_name: Anna
+  first_name: ''
+  last_name: ''
+permalink: "/setting-up-dbvis-for-ubuntu-14-04-1/"
+---
+<ol>
+<li>Download the setup installer from <a href="http://www.dbvis.com/download/" target="_blank">http://www.dbvis.com/download/</a>- Open a terminal and <strong>cd</strong> to the directory where you’ve downloaded the script</li>
+<li><strong>sudo bash ./dbvis_unix_</strong>&lt;version&gt;<strong>.sh </strong>and if you get:</li>
+<li>
+<blockquote><p>No suitable Java Virtual Machine could be found on your system.The version of the JVM must be at least 1.5 and at most 1.7.Please define INSTALL4J_JAVA_HOME to point to a suitable JVM.You can also try to delete the JVM cache file /home/hershel/.install4j</p></blockquote>
+</li>
+<li>Check your version. I had 1.8 so I needed to install 1.7, refer <a href="http://stackoverflow.com/a/16263651" target="_blank"><span class="question-hyperlink">Installing Java 7 on Ubuntu</span></a></li>
+<li><strong> sudo update-alternatives —config java</strong></li>
+<li>Pick a version between 1.5 and 1.7</li>
+<li>Run <strong>sudo bash ./dbvis_unix_</strong>&lt;version&gt;<strong>.sh </strong>again. It should work this time :)</li>
+</ol>

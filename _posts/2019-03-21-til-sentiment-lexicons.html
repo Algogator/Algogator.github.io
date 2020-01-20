@@ -1,0 +1,52 @@
+---
+layout: post
+title: TIL - Sentiment Lexicons
+date: 2019-03-21 20:09:05.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- ML
+tags: []
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_primary_category: '37'
+  _yoast_wpseo_content_score: '30'
+author:
+  login: admin
+  email: admin@annaphilips.com
+  display_name: Anna
+  first_name: ''
+  last_name: ''
+permalink: "/til-sentiment-lexicons/"
+---
+<p><!-- wp:quote --></p>
+<blockquote class="wp-block-quote"><p>“<strong>Lexicon</strong>” will refer to the component of <g class="gr_ gr_5 gr-alert gr_gramm gr_inline_cards gr_disable_anim_appear Grammar multiReplace" id="5" data-gr-id="5">a </g><strong><g class="gr_ gr_5 gr-alert gr_gramm gr_inline_cards gr_disable_anim_appear Grammar multiReplace" id="5" data-gr-id="5">NLP</g></strong> system that contains information (semantic, grammatical) about individual words or word strings.</p></p>
+<p><cite>The role of lexicons in natural language processing - ACM Digital Library</cite></p></blockquote>
+<p><!-- /wp:quote --></p>
+<p><!-- wp:image --></p>
+<figure class="wp-block-image"><img src="{{ site.baseurl }}/assets/Examples-of-sentiment-lexicons.png" alt="" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:quote --></p>
+<blockquote class="wp-block-quote"><p>Sentiment lexicons are mappings from words to <g class="gr_ gr_32 gr-alert gr_gramm gr_inline_cards gr_run_anim Style multiReplace" id="32" data-gr-id="32">scores  <g class="gr_ gr_9 gr-alert gr_gramm gr_inline_cards gr_disable_anim_appear Style multiReplace" id="9" data-gr-id="9">capturing</g></g><g class="gr_ gr_9 gr-alert gr_gramm gr_inline_cards gr_disable_anim_appear Style multiReplace" id="9" data-gr-id="9">  </g><g class="gr_ gr_10 gr-alert gr_gramm gr_inline_cards gr_run_anim Style multiReplace" id="10" data-gr-id="10"><g class="gr_ gr_9 gr-alert gr_gramm gr_inline_cards gr_disable_anim_appear Style multiReplace" id="9" data-gr-id="9">the</g>  </g><g class="gr_ gr_11 gr-alert gr_gramm gr_inline_cards gr_run_anim Style multiReplace" id="11" data-gr-id="11"><g class="gr_ gr_10 gr-alert gr_gramm gr_inline_cards gr_disable_anim_appear Style multiReplace" id="10" data-gr-id="10">degree</g>  </g><g class="gr_ gr_12 gr-alert gr_gramm gr_inline_cards gr_run_anim Style multiReplace" id="12" data-gr-id="12"><g class="gr_ gr_11 gr-alert gr_gramm gr_inline_cards gr_disable_anim_appear Style multiReplace" id="11" data-gr-id="11">of</g>  </g><g class="gr_ gr_13 gr-alert gr_gramm gr_inline_cards gr_run_anim Style multiReplace" id="13" data-gr-id="13"><g class="gr_ gr_12 gr-alert gr_gramm gr_inline_cards gr_disable_anim_appear Style multiReplace" id="12" data-gr-id="12">the</g>  </g><g class="gr_ gr_14 gr-alert gr_gramm gr_inline_cards gr_run_anim Style multiReplace" id="14" data-gr-id="14"><g class="gr_ gr_13 gr-alert gr_gramm gr_inline_cards gr_disable_anim_appear Style multiReplace" id="13" data-gr-id="13">sentiment</g>  ex</g>pressed by a given word.</p>
+<p><cite>On the Automatic Learning of Sentiment Lexicons</cite></p></blockquote>
+<p><!-- /wp:quote --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li>There are different kinds of lexicons for different things (Subjectivity Lexicon, Sentiment Lexicon, Emotion, Opinion), even different languages.</li>
+<li>They can be manually constructed or automated.</li>
+<li>Sentiment lexicons are an important source of features.</li>
+<li></li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:heading --></p>
+<h2>Lexicon Embeddings</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Lexicon embeddings are derived by taking scores from multiple sources of lexicon datasets.  Each lexicon dataset consists of key-value pairs,  where the key is a word and the value is a list of sentiment scores for that word (e.g., probabilities of the word in positive, neutral, and negative contexts). A lexicon embedding is constructed by concatenating all the scores among the datasets with respect to a word.  If a word does not appear in certain datasets, 0 values are an assigned in  place.  The resulting embedding is in the form of a vector v ∈ R^e,  where e is the total number of scores across all lexicon datasets.  </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph {"fontSize":"small"} --></p>
+<p class="has-small-font-size">(<em>Lexicon Integrated CNN Models with Attention for Sentiment Analysis</em>)</p>
+<p><!-- /wp:paragraph --></p>

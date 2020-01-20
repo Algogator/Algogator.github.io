@@ -1,0 +1,75 @@
+---
+layout: post
+title: 'Firefox OS: Hello World'
+date: 2014-02-06 17:50:00.000000000 -06:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- FIrefox
+tags:
+- app
+- firefox
+- os
+- web
+meta:
+  _edit_last: '1'
+  _aioseop_opengraph_settings: a:6:{s:32:"aioseop_opengraph_settings_title";s:0:"";s:31:"aioseop_opengraph_settings_desc";s:0:"";s:36:"aioseop_opengraph_settings_customimg";s:0:"";s:37:"aioseop_opengraph_settings_imagewidth";s:0:"";s:38:"aioseop_opengraph_settings_imageheight";s:0:"";s:35:"aioseop_opengraph_settings_category";s:0:"";}
+  snap_MYURL: ''
+  snapEdIT: '1'
+  _aioseop_keywords: firefox os
+author:
+  login: admin
+  email: admin@annaphilips.com
+  display_name: Anna
+  first_name: ''
+  last_name: ''
+permalink: "/firefox-os-hello-world/"
+---
+<p><span style="text-decoration: underline;"><strong>Creating a HelloWorld app in firefox OS:</strong></span></p>
+<ul>
+<li>Make a folder "HelloWorld"</li>
+<li>Create a text file in it, copy the code below into it and save the file as "index.html"</li>
+</ul>
+<blockquote>
+<pre style="padding-left: 30px;">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+ &lt;head&gt;
+ &lt;title&gt;First App&lt;/title&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+ &lt;h1&gt;Hello World&lt;/h1&gt;
+ &lt;/body&gt;
+&lt;/html&gt;</pre>
+</blockquote>
+<ul>
+<li>Create another text file in the folder and paste in the below and save that as "manifest.webapp"</li>
+</ul>
+<blockquote>
+<pre style="padding-left: 30px;">{
+ "name": "First App",
+ "launch_path": "/index.html",
+ "icons": { 
+ "128": "/img/anna.png"
+ },
+ "default_locale": "en"
+}</pre>
+</blockquote>
+<p>Make sure you get your launch_path right!</p>
+<ul>
+<li>Go to the app manager in firefox (Type into the URL bar in firefox "about:app-manager")</li>
+</ul>
+<p><img class=" aligncenter" src="{{ site.baseurl }}/assets/Screenshot-from-2014-02-06-233046-300x260.png" alt="Screenshot from 2014-02-06 23:30:46" /></p>
+<ul>
+<li>In the apps sections click "Apps"</li>
+<li>Click "Add Pacakaged App"</li>
+<li>Open the folder "HelloWorld" where your index and manifest files are</li>
+<li>Click the "Start Simulator" button at the bottom and pick the Simulator you want to use.</li>
+<li>Click the "Update" button for your app to install it.</li>
+<li>Click your app from the menu to run it</li>
+</ul>
+<p>And voila!</p>
+<p><img class=" aligncenter" src="{{ site.baseurl }}/assets/Screenshot-from-2014-02-06-223905-300x261.png" alt="Screenshot from 2014-02-06 22:39:05" /></p>
+<pre></pre>

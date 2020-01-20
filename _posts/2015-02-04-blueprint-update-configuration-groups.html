@@ -1,0 +1,52 @@
+---
+layout: post
+title: Blueprint update - Configuration Groups
+date: 2015-02-04 11:22:36.000000000 -06:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- FOSS
+tags:
+- openstack
+- opw
+- trove
+meta:
+  _edit_last: '1'
+  _oembed_2ae8739e62d6a122976bc5a6cbdf0e10: "{{unknown}}"
+  _oembed_e660aedcb2989c49647f193c14b5268f: "{{unknown}}"
+  _oembed_aa921018c4227971718c5098222238c9: "{{unknown}}"
+author:
+  login: admin
+  email: admin@annaphilips.com
+  display_name: Anna
+  first_name: ''
+  last_name: ''
+permalink: "/blueprint-update-configuration-groups/"
+---
+<p>So work on the blueprint has been kind of slow lately since I had to disappear for a while.</p>
+<p>Some things brought up in the last blueprint meeting dealt with:</p>
+<ul>
+<li>Using Configuration Groups API to control logging</li>
+<li>Alternative to os.stat to find the log's modification time</li>
+<li>Log Encryption</li>
+<li>How would this exactly work for a cluster</li>
+<li>Who has access to the logs - Since there would be no way to block the admin from accessing them from the Swift container but we can block unauthorized users using a Swift ACL</li>
+</ul>
+<h2>Configuration Groups:</h2>
+<blockquote><p>A configuration group is a collection of settings that can be saved and applied to one or more instances in Cloud Databases.</p></blockquote>
+<p>And a single setting or option for that datastore is known as a parameter.</p>
+<p>A few of the log related parameters are:</p>
+<h3><a href="http://dev.mysql.com/doc/refman/5.1/en/server-system-variables.html">MySQL:</a></h3>
+<p><a class="link" href="http://dev.mysql.com/doc/refman/5.1/en/server-system-variables.html#sysvar_slow_query_log"><code class="literal">slow_query_log</code></a> - Enable or disable slow query log</p>
+<p><a class="link" href="http://dev.mysql.com/doc/refman/5.1/en/server-system-variables.html#sysvar_general_log"><code class="literal">general_log</code></a> - Enable or disable general log</p>
+<p><a class="link" href="http://dev.mysql.com/doc/refman/5.1/en/server-system-variables.html#sysvar_log_error"><code class="literal">log_error</code></a> - Set the location of the error log</p>
+<p><code class="literal"><a class="link" href="http://dev.mysql.com/doc/refman/5.1/en/server-system-variables.html#sysvar_log_warnings">log_warnings</a></code> - Enable or disable writing additional warning messages to the error log</p>
+<p><a class="link" href="http://dev.mysql.com/doc/refman/5.1/en/replication-options-binary-log.html#sysvar_log_bin"><code class="literal">log_bin</code></a> - Binary logs</p>
+<p>Some of these variables are static so a restart is required before the changes can take effect.</p>
+<p>But of course this only works if the datastore supports configuration groups, have to figure out something else for the ones that don't.</p>
+<h2>References:</h2>
+<p><a title="http://www.rackspace.com/knowledge_center/article/managing-configuration-groups-for-cloud-databases-with-the-trove-command-line-tool" href="http://www.rackspace.com/knowledge_center/article/managing-configuration-groups-for-cloud-databases-with-the-trove-command-line-tool ">http://www.rackspace.com/knowledge_center/article/managing-configuration-groups-for-cloud-databases-with-the-trove-command-line-tool </a></p>
+<p><a href="https://wiki.openstack.org/wiki/Trove/Configurations">https://wiki.openstack.org/wiki/Trove/Configurations</a></p>
