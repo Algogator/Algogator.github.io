@@ -9,7 +9,7 @@ layout: main
     </div>
 
   <ul class="post-list">
-    {% for post in site.posts %}
+    {% for post in site.posts limit:10 %}
     <li>
         <div>
         <a class="post-link" href="{{ site.url }}{{ post.url}}">{{ post.title }}</a>
