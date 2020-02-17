@@ -1,16 +1,18 @@
 ---
 layout: post
 title: "Greedy Algorithms"
+tags:
+- backend
 ---
 
 # Greedy Algorithms
 
- - Pick the option that seems the "best" at the moment. 
+ - Pick the option that seems the "best" at the moment.
  - Usually involves sorting on second endpoint
 
-A classic greedy algorithm is Activity selection. Where you sort the lists according to finish times and pick the first activity to be printed. 
+A classic greedy algorithm is Activity selection. Where you sort the lists according to finish times and pick the first activity to be printed.
 
-Then you check if the start time of the current activity is larger than the finish time of the previous one. If true you can add that too. 
+Then you check if the start time of the current activity is larger than the finish time of the previous one. If true you can add that too.
 
 ![enter image description here](http://ycpcs.github.io/cs360-spring2015/lectures/images/lecture14/actselexample.png)
 
@@ -21,7 +23,7 @@ def find_max_activites(start_time, finish_time):
 
     start_time = map(start_time.__getitem__, indexes)
     finish_time = map(finish_time.__getitem__, indexes)
-    
+
     count = 1
     curr = 0
 
