@@ -23,7 +23,7 @@ links:
     url:          http://github.com/algogator
     external:     true
   - name:         Backend
-    url:          /archive
+    url:          /backend
     external:     false
 
 # Build settings
