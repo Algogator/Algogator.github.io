@@ -6,18 +6,13 @@ permalink: /backend/
 ---
 
 <div class="home">
-	{% for category in ['backend'] %}
-	{% capture cat %}{{ category | first }}{% endcapture %}
-
-	<h2>{{ cat | capitalize }}</h2>
 		<ul class="post-list">
-		{% for post in site.categories[cat] %}
+		{% for post in site.categories if site.categories == 'backend'  %}
   		  <li>
   		  <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
   			 <span class="post-date">{{ post.date | date_to_long_string }}</span>
   		  </li>
 		{% endfor %}
-
 		</ul>
 
 	{% endfor %}
