@@ -2,6 +2,7 @@
 layout: "post"
 title: "Database design"
 date: "2020-02-18 10:55"
+category: Backend
 ---
 
 ## Overview
@@ -52,6 +53,6 @@ Create a new "entity" (table) to go in between the Many-Many. AKA associative en
 
 ## Best practices
 
-* Stored procedures: Makes development more clean. Will write a completely new post for this. 
+* Stored procedures: Makes development more clean. Will write a completely new post for this.
 
 - https://www.guru99.com/database-normalization.html
