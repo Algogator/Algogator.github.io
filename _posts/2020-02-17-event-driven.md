@@ -1,12 +1,10 @@
 ---
 layout: post
 title: "Event-driven architecture"
-tags: [Backend]
+category: Backend
 ---
 
 ## Event driven architecture
-
-This is great for decoupled components which works well for me.
 
 ### WebSockets
 
@@ -36,6 +34,19 @@ This is great for decoupled components which works well for me.
 
 ### Pub-Sub
 
-*
+* Scalable
+* Decoupling is also a huge disadvantage
+* Redis and Celery is a way to go about it
 
 ### SSE
+
+* Server sends clients data
+* Not bidirectional
+* Won't have to wait for data to be returned
+* Security is going to be annoying
+* Loss of data
+* Seems to be a couple of packages but seems like a bad idea (https://github.com/niwinz/django-sse) and (https://uwsgi-docs.readthedocs.io/en/latest/articles/OffloadingWebsocketsAndSSE.html)
+
+"...you cannot mix blocking apps with non-blocking engines, even a single, ultra-tiny blocking part can potentially destroy your whole stack. As I have already said dozens of time, if your app is 99.9999999% non-blocking, it is still blocking." -Roberto De Ioris
+
+Refer [https://nordicapis.com/5-protocols-for-event-driven-api-architectures/](https://nordicapis.com/5-protocols-for-event-driven-api-architectures/")
