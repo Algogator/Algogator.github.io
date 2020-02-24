@@ -4,3 +4,6 @@
 
 You should note that persistence is not the main goal of this data store, so your queue could be erased in the event of a power failure or other crash. Keep this in mind and don’t use the job queue to store application state.
 Specifically, Redis is used to store messages produced by the application code describing the work to be done in the Celery task queue. Redis also serves as storage of results coming off the celery queues which are then retrieved by consumers of the queue.
+Celery utilizes tasks, which can be thought of as regular Python functions that are called with Celery.
+
+RQ and Celery are the same thing!
