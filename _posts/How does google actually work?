@@ -1,0 +1,29 @@
+1. Spiders crawl the entire web and to add to an index, so you're not searching the "live" web you're searching Google's index of the web. 
+2. Sophisticated search algorithms (bunch of them) to  go through these indices
+3. Ranking algorithms (sift through millions of indices) and assembles them
+
+Factors:
+- Words in page
+- Location of word in page, proximity of words
+- How pages are linked
+- Where a search happens
+- When a page was uploaded (freshness algorithms - https://search.googleblog.com/2011/11/giving-you-fresher-more-recent-search.html)
+
+The weight assigned to each factor depends on the query
+
+Someone is sitting an comparing search quality (Search quality guidelines)
+
+We build language models to try to decipher what strings of words we should look up in the index.
+For example, our synonym system helps Search know what you mean by establishing that multiple words mean the same thing.
+Escape hatch - "Search results for..." The spelling algorithm made a misatke and you're training it. 
+
+ Caffeine 2010:
+ With Caffeine the index is updated regularly and in small amounts which provides upto date information.
+ There's a possibility of the page being out of date, so everyday you go back and check for changes.  
+ 
+ Page Rank: 
+ - The more people who link to you
+ 
+- Find the closest data center
+- Send that query out to different machines which look at particular indices.
+You try to find the document which has the words in it: Document selection. 
