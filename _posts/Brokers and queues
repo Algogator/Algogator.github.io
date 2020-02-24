@@ -1,0 +1,13 @@
+"Celery is a task queue with focus on real-time processing, while also supporting task scheduling."
+
+"Redis is a message broker. This means it handles the queue of "messages" between Django and Celery."
+
+You should note that persistence is not the main goal of this data store, so your queue could be erased in the event of a power failure or other crash. Keep this in mind and don’t use the job queue to store application state.
+Specifically, Redis is used to store messages produced by the application code describing the work to be done in the Celery task queue. Redis also serves as storage of results coming off the celery queues which are then retrieved by consumers of the queue.
+Celery utilizes tasks, which can be thought of as regular Python functions that are called with Celery.
+
+RQ and Celery are the same thing!
+
+Queue, also called as message_brokers is a queuing system where you push your tasks to be executed asynchronously. Worker pings the queue once in a while and executes the tasks.The Queue component mentioned earlier is not inbuilt in celery. It uses RabbitMq or Redis queuing system.
+
+What happens when a task fails? When a particular task fails, you can configure celery to retry until a particular exception occurs, or set max_retries parameter to enable retrying n times before giving up.
