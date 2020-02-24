@@ -13,9 +13,16 @@ The weight assigned to each factor depends on the query
 
 Someone is sitting an comparing search quality (Search quality guidelines)
 
+When a webpage is indexed all the words are the entries that go into it. 
+
 We build language models to try to decipher what strings of words we should look up in the index.
 For example, our synonym system helps Search know what you mean by establishing that multiple words mean the same thing.
 Escape hatch - "Search results for..." The spelling algorithm made a misatke and you're training it. 
+
+RankBrain: 
+Model(not NLP) that helps return the relevant results given an "unknown" query (15% of them) 
+Knowledge graph:
+Another way Google enhances it's search, where objects are stored with their relationships to each other. "things, not strings"
 
  Caffeine 2010:
  With Caffeine the index is updated regularly and in small amounts which provides upto date information.
